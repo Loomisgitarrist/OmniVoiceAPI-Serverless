@@ -1,6 +1,8 @@
 import os
+import sys
 import io
 import base64
+import traceback
 import numpy as np
 
 import runpod
@@ -8,7 +10,14 @@ import runpod
 import torch
 import torchaudio
 
-from omnivoice.tts_api import OmniVoiceTTSEngine
+print("[STARTUP] handler.py loaded — starting imports", flush=True)
+
+try:
+    from omnivoice.tts_api import OmniVoiceTTSEngine
+    print("[STARTUP] OmniVoiceTTSEngine imported OK", flush=True)
+except Exception as e:
+    print("[STARTUP] IMPORT ERROR:\n" + traceback.format_exc(), file=sys.stderr, flush=True)
+    raise
 
 # -----------------------------
 # One-time model load (worker warm state)
@@ -16,14 +25,22 @@ from omnivoice.tts_api import OmniVoiceTTSEngine
 MODEL_PATH = os.environ.get("MODEL_PATH", "k2-fsa/OmniVoice")
 DEVICE = os.environ.get("DEVICE", "cuda")
 
-engine = OmniVoiceTTSEngine()
-engine.tts_load(
-    model_path=MODEL_PATH,
-    reference_audio_path=None,
-    reference_text=None,
-    device=DEVICE,
-    load_asr=False,
-)
+print(f"[STARTUP] MODEL_PATH={MODEL_PATH}, DEVICE={DEVICE}", flush=True)
+
+try:
+    engine = OmniVoiceTTSEngine()
+    print("[STARTUP] OmniVoiceTTSEngine() created", flush=True)
+    engine.tts_load(
+        model_path=MODEL_PATH,
+        reference_audio_path=None,
+        reference_text=None,
+        device=DEVICE,
+        load_asr=False,
+    )
+    print("[STARTUP] tts_load() succeeded", flush=True)
+except Exception as e:
+    print("[STARTUP] MODEL LOAD ERROR:\n" + traceback.format_exc(), file=sys.stderr, flush=True)
+    raise
 
 # If you know sample_rate comes from the model, prefer that.
 # Otherwise, set a default and/or read it from audio metadata.
