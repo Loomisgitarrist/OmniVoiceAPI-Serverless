@@ -13,6 +13,9 @@ RUN pip install --no-cache-dir -r /app/requirements.txt
 COPY omnivoice /app/omnivoice
 ENV PYTHONPATH=/app:$PYTHONPATH
 
+# Pre-download the model so cold-start doesn't timeout (build 26190129042 gotcha)
+RUN python -c "from huggingface_hub import snapshot_download; snapshot_download('k2-fsa/OmniVoice')"
+
 COPY handler.py /app/handler.py
 
 CMD ["python", "-u", "/app/handler.py"]
