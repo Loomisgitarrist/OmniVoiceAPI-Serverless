@@ -13,7 +13,7 @@ from omnivoice.tts_api import OmniVoiceTTSEngine
 # -----------------------------
 # One-time model load (worker warm state)
 # -----------------------------
-MODEL_PATH = os.environ.get("MODEL_PATH", "chintanp/OmniVoice")
+MODEL_PATH = os.environ.get("MODEL_PATH", "k2-fsa/OmniVoice")
 DEVICE = os.environ.get("DEVICE", "cuda")
 
 engine = OmniVoiceTTSEngine()
