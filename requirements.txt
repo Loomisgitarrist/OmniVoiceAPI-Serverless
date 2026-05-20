@@ -2,4 +2,4 @@ runpod
 torch
 torchaudio
 numpy
-git+https://github.com/Loomisgitarrist/OmniVoiceAPI.git
+huggingface-hub>=0.20
