@@ -5,6 +5,8 @@ numpy
 huggingface-hub>=0.20
 transformers>=4.40
 soundfile
+pydub
+tqdm
 safetensors
 sentencepiece
 protobuf

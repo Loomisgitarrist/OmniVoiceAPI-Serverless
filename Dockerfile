@@ -3,7 +3,7 @@ FROM runpod/pytorch:1.0.2-cu1281-torch280-ubuntu2404
 WORKDIR /app
 
 # Install git + ffmpeg (gotcha #1 from RunPod AI)
-RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg git \
+RUN apt-get update && apt-get install -y --no-install-recommends ffmpeg git libsndfile1 \
  && rm -rf /var/lib/apt/lists/*
 
 COPY requirements.txt /app/requirements.txt
