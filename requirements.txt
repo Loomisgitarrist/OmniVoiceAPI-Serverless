@@ -3,10 +3,11 @@ torch
 torchaudio
 numpy
 huggingface-hub>=0.20
-transformers>=4.40
+transformers>=4.49
 soundfile
 pydub
 tqdm
 safetensors
 sentencepiece
 protobuf
+accelerate
